@@ -1,0 +1,20 @@
+#+HTML_HEAD: <link rel="stylesheet" href="../static/style.css">
+#+HTML_HEAD: <link rel="icon" href="../static/favicon.png" type="image/png">
+#+OPTIONS: toc:nil
+#+EXPORT_FILE_NAME: index
+#+TITLE: Crux
+
+Crux is a wallpaper manager written in Perl, currently it supports
+fetching from Unsplash Source.
+
+Support for more sources is planned, I have previously written [[https://andinus.nand.sh/cetus/][Cetus]]
+which supports /Bing Photo of the Day/ & /NASA Astronomy Picture of the
+Day/. I plan to port all to features to Crux too.
+
+| Project Home    | [[https://andinus.nand.sh/crux/][Crux]]           |
+| Source Code     | [[https://git.tilde.institute/andinus/crux/][Andinus / Crux]] |
+| GitHub (Mirror) | [[https://github.com/andinus/crux/][Crux - GitHub]]  |
+
+*Tested on*:
+- OpenBSD 6.7
+  - Perl v5.30
