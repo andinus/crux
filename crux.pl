@@ -20,18 +20,10 @@ require OpenBSD::Unveil
     if is_OpenBSD;
 sub unveil {
     if (is_OpenBSD) {
-        if ( $options{debug} ) {
-            # Check if defined because unveil can also be called blank
-            # to block it.
-            if ( defined($_[0]) and defined($_[1]) ) {
-                say LOCALCOLOR GREEN "Unveil :: $_[0] :: $_[1]";
-            } else {
-                say LOCALCOLOR GREEN "Unveil :: Block";
-            }
-        }
+        say LOCALCOLOR GREEN "Unveil :: @_" if $options{debug};
         return OpenBSD::Unveil::unveil(@_);
     } else {
-        warn "Calling dummy unveil...\n" if $options{debug};
+        warn "Dummy unveil :: @_\n" if $options{debug};
         return 1;
     }
 }
