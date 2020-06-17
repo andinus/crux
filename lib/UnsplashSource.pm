@@ -5,6 +5,7 @@ package UnsplashSource;
 use strict;
 use warnings;
 
+use URI;
 use HTTP::Tiny;
 use Carp qw( croak carp );
 
@@ -42,11 +43,16 @@ sub get_random {
 
 sub random_search {
     my ( %options ) = @_;
-    my $url = "$api/";
-    $url .= "featured/" if $options{featured};
-    $url .= $options{resolution};
-    $url .= "?";
-    $url .= "$_," foreach ( @{$options{search}});
+
+    my $url = URI->new($api);
+
+    my @segments;
+    push @segments, "featured" if $options{featured};
+    push @segments, $options{resolution};
+    $url->path_segments( @segments );
+
+    $url->query_keywords( \@{$options{search}} );
+
     return $http->head($url);
 }
 
