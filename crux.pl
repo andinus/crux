@@ -58,7 +58,7 @@ sub HelpMessage {
     --help         Print this help message
     --debug        Print debugging information
 
-Unsplash:
+Unsplash Source:
     --resolution   Device resolution (default: 1920x1080)
 
     --search=s     Search term (space seperated)
@@ -81,6 +81,9 @@ Additional information:
     - user & search option can be passed with daily or weekly.
     - resolution can be passed with any group, it will be ignored if
       not applicable.
+
+    This might be outdated, read the README file for up-to-date
+    documentation.
 ";
     exit;
 }
