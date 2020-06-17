@@ -18,3 +18,66 @@ Day/. I plan to port all to features to Crux too.
 *Tested on*:
 - OpenBSD 6.7
   - Perl v5.30
+
+*Note* (OpenBSD users): If you're using a custom Perl install then add the
+path to =OpenBSD::= in @INC.
+
+* Documentation
+** Options
+*** Crux
+**** debug
+This will print additional information that'll help you to debug the
+code. You might see multiple Unveil warnings on non-OpenBSD systems,
+ignore them.
+
+$response received from the api will also be printed.
+**** help
+Prints quick help information listing all the options & a small
+description.
+*** Unsplash Source
+Some options cannot be mixed, if you mix them then expect unexpected
+results. It won't fail but can return photos that you didn't ask for.
+
+For example, =--search nature --user test= - You might think this will
+return an image from user "test" & related to "nature" but it won't! It
+will either return an image related to "nature" or user "test" because
+these options cannot be mixed. Look at [[https://source.unsplash.com][Unsplash Source]] to know more
+about the kind of queries that are valid.
+
+I could write a check for invalid options but that would be complicated
+so I didn't, it's easier to ignore invalid options & you can always pass
+the =debug= option to see what query it constructed.
+
+=--search nature --daily= -  This is a valid set, I have written about
+valid sets below, like under =daily= it's mentioned that you can pass
+=search= option so read each description.
+**** resolution
+Default is "1920x1080", it doesn't check the value passed so make sure
+you pass the correct value. This can be passed with any option, it will
+be ignored if not applicable.
+**** search
+Search accepts multiple space seperated values. It's passed directly to
+the api.
+
+*Note*: The feature to get space seperated values is marked as
+experimental in Getopt::Long so the behaviour can change in future,
+worse even get removed. To guarantee backwards compatibility pass each
+value by itself like =--search rocky --search mountain=, this is equivalent to
+=--search rocky mountain=.
+**** featured
+Only Unsplash curated images are returned if you pass =featured=, this can
+be passed along with =search=.
+**** user
+This will return a random photo from given user.
+**** userlikes
+Only returns random photo from user's likes, this is a boolean & can be
+passed with =user= option.
+**** collection
+Returns photos from a collection.
+**** daily, weekly
+This will return a set random daily or weekly image. =user= & =search=
+option can be passed to narrow the selection.
+** Cross-platform compatibility
+Crux should run on all supported platforms, there is OpenBSD specific
+code but it's ignored on other platforms. To know more about how this
+works read this page: [[https://andinus.nand.sh/projects/cross-platform-compatibility.html][Cross-platform compatibility]].
