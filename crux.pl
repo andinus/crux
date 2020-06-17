@@ -108,12 +108,6 @@ foreach my $path ( sort keys %unveil ) {
         or die "Unable to unveil: $!\n";
 }
 
-# Unveil $PATH.
-foreach my $path ( split(/:/, $ENV{PATH}) ) {
-    unveil( $path, "rx" )
-        or die "Unable to unveil: $!\n";
-}
-
 my $response = UnsplashSource::get( %options );
 
 if ( $options{debug} ) {
@@ -124,6 +118,12 @@ if ( $options{debug} ) {
 
 die "Unexpected response\n"
     unless $response->{status} == 302;
+
+# Unveil $PATH.
+foreach my $path ( split(/:/, $ENV{PATH}) ) {
+    unveil( $path, "rx" )
+        or die "Unable to unveil: $!\n";
+}
 
 run3 ["feh", "--bg-fill", "$response->{headers}{location}"];
 
