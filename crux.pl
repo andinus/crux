@@ -24,9 +24,9 @@ sub unveil {
             # Check if defined because unveil can also be called blank
             # to block it.
             if ( defined($_[0]) and defined($_[1]) ) {
-                say "Unveil :: $_[0] :: $_[1]";
+                say LOCALCOLOR GREEN "Unveil :: $_[0] :: $_[1]";
             } else {
-                say "Unveil :: Block";
+                say LOCALCOLOR GREEN "Unveil :: Block";
             }
         }
         return OpenBSD::Unveil::unveil(@_);
