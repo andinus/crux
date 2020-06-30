@@ -58,9 +58,16 @@ sub random_search {
 
 sub user_random {
     my ( %options ) = @_;
-    my $url = "$api/user/$options{user}/";
-    $url .= "likes/" if $options{user_likes};
-    $url .= $options{resolution};
+
+    my $url = URI->new($api);
+
+    my @segments;
+    push @segments, "user";
+    push @segments, $options{user};
+    push @segments, "likes" if $options{user_likes};
+    push @segments, $options{resolution};
+    $url->path_segments( @segments );
+
     return $http->head($url);
 }
 
@@ -73,14 +80,20 @@ sub collection {
 
 sub fixed {
     my ( %options ) = @_;
+
     croak "Cannot use daily & weekly together"
         if $options{daily} and $options{weekly};
-    my $url = "$api/";
-    $url .= "user/$options{user}/" if $options{user};
-    $url .= "daily/" if $options{daily};
-    $url .= "weekly/" if $options{weekly};
-    $url .= "?";
-    $url .= "$_," foreach ( @{$options{search}});
+
+    my $url = URI->new($api);
+
+    my @segments;
+    push @segments, "user/$options{user}" if $options{user};
+    push @segments, "daily" if $options{daily};
+    push @segments, "weekly" if $options{weekly};
+    $url->path_segments( @segments );
+
+    $url->query_keywords( \@{$options{search}} );
+
     return $http->head($url);
 }
 
