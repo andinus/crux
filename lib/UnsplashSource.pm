@@ -8,6 +8,7 @@ use warnings;
 use URI;
 use HTTP::Tiny;
 use Carp qw( croak carp );
+use URI::Encode qw( uri_encode );
 
 my $api = "https://source.unsplash.com";
 my $http = HTTP::Tiny->new(
@@ -51,7 +52,7 @@ sub random_search {
     push @segments, $options{resolution};
     $url->path_segments( @segments );
 
-    $url->query_keywords( \@{$options{search}} );
+    $url->query_keywords( uri_encode(join(',', @{$options{search}})) );
 
     return $http->head($url);
 }
@@ -92,7 +93,7 @@ sub fixed {
     push @segments, "weekly" if $options{weekly};
     $url->path_segments( @segments );
 
-    $url->query_keywords( \@{$options{search}} );
+    $url->query_keywords( uri_encode(join(',', @{$options{search}})) );
 
     return $http->head($url);
 }
