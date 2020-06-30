@@ -4,5 +4,6 @@ requires 'Getopt::Long', '2.5';
 requires 'Term::ANSIColor', '5.01';
 requires 'Data::Printer', '0.40';
 requires 'URI', '1.76';
+requires 'URI::Encode', '1.1.1';
 requires 'HTTP::Tiny', '0.076';
 requires 'Carp', '1.50';
