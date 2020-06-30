@@ -13,7 +13,8 @@ _________________
 .. 1.1 Options
 ..... 1.1.1 Crux
 ..... 1.1.2 Unsplash Source
-.. 1.2 Cross-platform compatibility
+.. 1.2 Dependencies
+.. 1.3 Cross-platform compatibility
 
 
 Crux is a wallpaper manager written in Perl, currently it supports
@@ -125,7 +126,22 @@ Crux someday.
   option can be passed to narrow the selection.
 
 
-1.2 Cross-platform compatibility
+1.2 Dependencies
+~~~~~~~~~~~~~~~~
+
+  The version numbers mentioned in cpanfile is not the minimum required
+  to run Crux, you can try lowering them. Might also make this work
+  without some dependencies, look at `lib/' and see what dependencies
+  you can remove.
+
+  For example, you can probably remove Carp & replace it with `die', not
+  the same thing but it should work.
+
+  *Note*: Do this only if you can't install those dependencies for some
+   reason.
+
+
+1.3 Cross-platform compatibility
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Crux should run on all supported platforms, there is OpenBSD specific
