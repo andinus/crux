@@ -1,20 +1,19 @@
-                               _________
-
+                               ━━━━━━━━━
                                   CRUX
 
                                 Andinus
-                               _________
+                               ━━━━━━━━━
 
 
 Table of Contents
-_________________
+─────────────────
 
-1 Documentation
-.. 1.1 Dependencies
-.. 1.2 Options
-..... 1.2.1 Crux
-..... 1.2.2 Unsplash Source
-.. 1.3 Cross-platform compatibility
+1. Documentation
+.. 1. Dependencies
+.. 2. Options
+..... 1. Crux
+..... 2. Unsplash Source
+.. 3. Cross-platform compatibility
 
 
 Crux is a wallpaper manager written in Perl, currently it supports
@@ -25,18 +24,20 @@ I have previously written [Cetus] which supports /Bing Photo of the Day/
 Crux someday.
 
 *Tested on*:
-- OpenBSD 6.7
-  - Perl v5.30
+• OpenBSD 6.8
+  • Perl v5.30.3
+• OpenBSD 6.7
+  • Perl v5.30
 
 
-[Cetus] https://andinus.nand.sh/cetus/
+[Cetus] <https://andinus.nand.sh/cetus/>
 
 
 1 Documentation
-===============
+═══════════════
 
 1.1 Dependencies
-~~~~~~~~~~~~~~~~
+────────────────
 
   `feh' is required to set the background. Other DE/WMs & macOS can be
   easily supported, if you want it then look at [Cetus]'s source or ping
@@ -52,36 +53,33 @@ Crux someday.
   For example, you can probably remove Carp & replace it with `die', not
   the same thing but it should work.
 
-  *Note*: Do this only if you can't install those dependencies for some
-   reason.
 
-
-[Cetus] https://andinus.nand.sh/cetus/
+[Cetus] <https://andinus.nand.sh/cetus/>
 
 
 1.2 Options
-~~~~~~~~~~~
+───────────
 
 1.2.1 Crux
-----------
+╌╌╌╌╌╌╌╌╌╌
 
-* 1.2.1.1 debug
+◊ 1.2.1.1 debug
 
   This will print additional information that'll help you to debug the
   code. You might see multiple Unveil warnings on non-OpenBSD systems,
   ignore them.
 
-  $response received from the api will also be printed.
+  `$response' received from the api will also be printed.
 
 
-* 1.2.1.2 help
+◊ 1.2.1.2 help
 
   Prints quick help information listing all the options & a small
   description.
 
 
 1.2.2 Unsplash Source
----------------------
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 
   Some options cannot be mixed, if you mix them then expect unexpected
   results. It won't fail but can return photos that you didn't ask for.
@@ -101,16 +99,16 @@ Crux someday.
   `search' option so read each description.
 
 
-[Unsplash Source] https://source.unsplash.com
+[Unsplash Source] <https://source.unsplash.com>
 
-* 1.2.2.1 resolution
+◊ 1.2.2.1 resolution
 
   Default is "1920x1080", it doesn't check the value passed so make sure
   you pass the correct value. This can be passed with any option, it
   will be ignored if not applicable.
 
 
-* 1.2.2.2 search
+◊ 1.2.2.2 search
 
   Search accepts multiple space seperated values. It's passed directly
   to the api.
@@ -122,36 +120,36 @@ Crux someday.
   equivalent to `--search rocky mountain'.
 
 
-* 1.2.2.3 featured
+◊ 1.2.2.3 featured
 
   Only Unsplash curated images are returned if you pass `featured', this
   can be passed along with `search'.
 
 
-* 1.2.2.4 user
+◊ 1.2.2.4 user
 
   This will return a random photo from given user.
 
 
-* 1.2.2.5 userlikes
+◊ 1.2.2.5 userlikes
 
   Only returns random photo from user's likes, this is a boolean & can
   be passed with `user' option.
 
 
-* 1.2.2.6 collection
+◊ 1.2.2.6 collection
 
   Returns photos from a collection.
 
 
-* 1.2.2.7 daily, weekly
+◊ 1.2.2.7 daily, weekly
 
   This will return a set random daily or weekly image. `user' & `search'
   option can be passed to narrow the selection.
 
 
 1.3 Cross-platform compatibility
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+────────────────────────────────
 
   Crux should run on all supported platforms, there is OpenBSD specific
   code but it's ignored on other platforms. To know more about how this
@@ -159,4 +157,4 @@ Crux someday.
 
 
 [Cross-platform compatibility]
-https://andinus.nand.sh/projects/cross-platform-compatibility.html
+<https://andinus.nand.sh/projects/cross-platform-compatibility.html>

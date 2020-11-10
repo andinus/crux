@@ -9,21 +9,18 @@ use UnsplashSource;
 
 use IPC::Run3;
 use Getopt::Long qw( GetOptions );
-use Term::ANSIColor qw( :pushpop colored );
-
-local $SIG{__WARN__} = sub { print colored( $_[0], 'yellow' ); };
+use Data::Dumper;
 
 my %options = ( resolution => '1920x1080' );
 
 use constant is_OpenBSD => $^O eq "openbsd";
-require OpenBSD::Unveil
-    if is_OpenBSD;
+require OpenBSD::Unveil if is_OpenBSD;
 sub unveil {
     if (is_OpenBSD) {
-        say LOCALCOLOR GREEN "Unveil :: @_" if $options{debug};
+        say "Unveil :: @_" if $options{debug};
         return OpenBSD::Unveil::unveil(@_);
     } else {
-        warn "Dummy unveil :: @_\n" if $options{debug};
+        warn "Dummy Unveil :: @_\n" if $options{debug};
         return 1;
     }
 }
@@ -52,14 +49,13 @@ GetOptions(
     "help|h|?" => sub { HelpMessage() },
 ) or die "Error in command line arguments\n";
 
-
 sub HelpMessage {
-    print LOCALCOLOR GREEN "Crux:
+    say "Crux:
     --help         Print this help message
     --debug        Print debugging information
 
 Unsplash Source:
-    --resolution   Device resolution (default: 1920x1080)
+    --resolution   Device resolution (default: $options{resolution})
 
     --search=s     Search term (space seperated)
     --featured     Unsplash curated photos
@@ -70,21 +66,7 @@ Unsplash Source:
     --collection=s Photos from collection
 
     --daily        Daily photo
-    --weekly       Weekly photo
-";
-    print LOCALCOLOR CYAN "
-Additional information:
-    Options above are seperated by groups, no groups can be mixed. If
-    you pass options from multiple groups then expect unexpected
-    results.
-
-    - user & search option can be passed with daily or weekly.
-    - resolution can be passed with any group, it will be ignored if
-      not applicable.
-
-    This might be outdated, read the README file for up-to-date
-    documentation.
-";
+    --weekly       Weekly photo";
     exit;
 }
 
@@ -104,12 +86,7 @@ foreach my $path ( sort keys %unveil ) {
 }
 
 my $response = UnsplashSource::get( %options );
-
-if ( $options{debug} ) {
-    require Data::Printer;
-    Data::Printer->import;
-    p($response);
-}
+print Dumper($response) if $options{debug};
 
 die "Unexpected response\n"
     unless $response->{status} == 302;
@@ -117,11 +94,13 @@ die "Unexpected response\n"
 # Unveil $PATH.
 foreach my $path ( split(/:/, $ENV{PATH}) ) {
     unveil( $path, "rx" )
-        or die "Unable to unveil: $!\n";
+        or ($! eq "No such file or directory"
+            # Don't die if the file/directory doesn't exist.
+            ? next
+            : die "Unable to unveil: $! :: $path\n");
 }
 
-run3 ["feh", "--bg-fill", "$response->{headers}{location}"];
-
 # Block further unveil calls.
-unveil()
-    or die "Unable to lock unveil: $!\n";
+unveil() or die "Unable to lock unveil: $!\n";
+
+run3 ["feh", "--bg-fill", "$response->{headers}{location}"];
